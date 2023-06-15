@@ -1,20 +1,24 @@
-const sinon = require('sinon');
-const Utils = require('./utils');
 const { expect } = require('chai');
-const sendPaymentRequestToApi = require('./4-payment');
+const sinon = require('sinon');
+const sendPaymentRequestToApi = require('./3-payment');
+const Utils = require('./utils');
+/**
+ * test the 3-payment using sinon.spy
+ */
 
-describe('sendPaymentRequestToApi', () => {
-  it('sendPaymentRequestToApi calls console.log with the right arguments', () => {
-    const bigBrother = sinon.spy(console);
-    const dummy = sinon.stub(Utils, 'calculateNumber');
+describe('sendPaymentRequestApi', function () {
+  it('...', function () {
+    const spy = sinon.spy(console);
+    const stubby = sinon.stub(Utils, 'calculateNumber');
 
-    dummy.returns(10);
+    stubby.returns(10);
     sendPaymentRequestToApi(100, 20);
-    expect(dummy.calledWith('SUM', 100, 20)).to.be.true;
-    expect(dummy.callCount).to.be.equal(1);
-    expect(bigBrother.log.calledWith('The total is: 10')).to.be.true;
-    expect(bigBrother.log.callCount).to.be.equal(1);
-    dummy.restore();
-    bigBrother.log.restore();
+
+    expect(stubby.calledWith('SUM', 100, 20)).to.be.true;
+    expect(stubby.callCount).to.be.equal(1);
+    expect(spy.log.calledWith('The total is: 10')).to.be.true;
+    expect(spy.log.callCount).to.be.equal(1);
+    stubby.restore();
+    spy.log.restore();
   });
 });
